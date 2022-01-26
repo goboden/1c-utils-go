@@ -15,7 +15,13 @@ func Run() {
 			println(err.Error(), err)
 			return
 		}
-		readIBases(fileData)
+		ibList := readIBases(fileData)
+		ibasesCount, foldersCount := ibList.Count()
+		println(ibasesCount, foldersCount)
+		if ibasesCount == 0 && foldersCount == 0 {
+			fmt.Println("File is empty")
+			return
+		}
 	} else {
 		fmt.Printf("IBases file is not found: %s", err.Error())
 	}
@@ -29,7 +35,7 @@ func findIBasesFile() (string, error) {
 		filePath = filePath + userProfile + "/AppData/Roaming/1C/1CEStart/ibases.v8i"
 		return filePath, nil
 	}
-	return filePath, errors.New("Enviroment variable [USERPROFILE] is not found.")
+	return filePath, errors.New("enviroment variable [USERPROFILE] is not found")
 }
 
 func readFile(name string) (str []string, err error) {

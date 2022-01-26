@@ -9,10 +9,16 @@ type ibaseList struct {
 	folders []folder
 }
 
+func (ibl *ibaseList) Count() (ibases int, folders int) {
+	ibases = len(ibl.ibases)
+	folders = len(ibl.folders)
+	return
+}
+
 type ibaseItem struct {
-	name, id     string
-	external     bool
-	folder, path string
+	name, id string
+	external bool
+	path     string
 }
 
 type ibase struct {
@@ -49,10 +55,6 @@ func readIBases(data []string) *ibaseList {
 	// printIBases(ibases)
 	printFolders(ibases, "/", 0)
 	return ibases
-}
-
-func isIBName(s string) bool {
-	return strings.HasPrefix(s, "[")
 }
 
 func parseIBName(s string) (name string, ok bool) {
